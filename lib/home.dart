@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("handyhans"),
+        child: AppList(),
       ),
     );
   }
