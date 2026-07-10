@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:device_apps/device_apps.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_android_launcher/flutter_android_launcher.dart';
 
 
 class AppList extends StatefulWidget {
@@ -10,42 +11,24 @@ class AppList extends StatefulWidget {
 }
 
 class _AppListState extends State<AppList> {
-  List<Application> _apps = [];
+  List<Map<String, String>> _apps = [];
+  final _flutterAndroidLauncherPlugin = FlutterAndroidLauncher();
 
   @override
   void initState() {
     super.initState();
+    _getInstalledApps();
+  }
 
-    DeviceApps.getInstalledApplications().then((initialApps) {
+  Future<void> _getInstalledApps() async {
+    try {
+      final installedApps = await _flutterAndroidLauncherPlugin.getInstalledApps();
       setState(() {
-        _apps = initialApps;
+        _apps = installedApps;
       });
-    });
-
-    DeviceApps.listenToAppsChanges().listen((event) {
-      if (event is ApplicationEventInstalled) {
-        setState(() {
-          _apps.add(event.application);
-        });
-      } else if (event is ApplicationEventEnabled) {
-        setState(() {
-          _apps.add(event.application);
-        });
-      } else if (event is ApplicationEventUninstalled) {
-        setState(() {
-          _apps.removeWhere((app) => app.packageName == event.packageName);
-        });
-      } else if (event is ApplicationEventDisabled) {
-        setState(() {
-          _apps.removeWhere((app) => app.packageName == event.packageName);
-        });
-      } else if (event is ApplicationEventUpdated) {
-        setState(() {
-          _apps.removeWhere((app) => app.packageName == event.packageName);
-          _apps.add(event.application);
-        });
-      }
-    });
+    } on PlatformException catch (e) {
+      print("Failed to get installed apps: '${e.message}'.");
+    }
   }
 
   @override
@@ -53,7 +36,7 @@ class _AppListState extends State<AppList> {
     return ListView.builder(
       itemCount: _apps.length,
       itemBuilder: (context, index) {
-        return Text(_apps[index].appName);
+        return Text(_apps[index]['appName']!);
       },
     );
   }
