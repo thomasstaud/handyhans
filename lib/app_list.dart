@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_android_launcher/flutter_android_launcher.dart';
 
-
 class AppList extends StatefulWidget {
   const AppList({super.key});
 
@@ -22,7 +21,8 @@ class _AppListState extends State<AppList> {
 
   Future<void> _getInstalledApps() async {
     try {
-      final installedApps = await _flutterAndroidLauncherPlugin.getInstalledApps();
+      final installedApps = await _flutterAndroidLauncherPlugin
+          .getInstalledApps();
       setState(() {
         _apps = installedApps;
       });
@@ -33,11 +33,13 @@ class _AppListState extends State<AppList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _apps.length,
-      itemBuilder: (context, index) {
-        return Text(_apps[index]['appName']!);
-      },
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: _apps.length,
+        itemBuilder: (context, index) {
+          return Text(_apps[index]['appName']!);
+        },
+      ),
     );
   }
 }
