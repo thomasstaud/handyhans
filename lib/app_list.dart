@@ -27,8 +27,9 @@ class _AppListState extends State<AppList> {
 
   Future<void> _getInstalledApps() async {
     try {
-      final installedApps = await _flutterAndroidLauncherPlugin
+      var installedApps = await _flutterAndroidLauncherPlugin
           .getInstalledApps();
+      installedApps.sort((a, b) => a["appName"]!.compareTo(b["appName"]!));
       setState(() {
         _apps = installedApps;
       });

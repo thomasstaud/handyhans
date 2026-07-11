@@ -50,7 +50,12 @@ class _HomePageState extends State<HomePage>
 
       Future.delayed(const Duration(milliseconds: 500), () {
         if (!mounted) return;
-        _state = LauncherState.normal;
+
+        setState(() {
+          _state = LauncherState.normal;
+          _message = startMsg;
+        });
+
         Navigator.of(
           context,
         ).push(MaterialPageRoute(builder: (_) => const AppList()));
