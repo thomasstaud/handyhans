@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -77,7 +78,12 @@ class _HomePageState extends State<HomePage>
                 animatedTexts: [
                   TypewriterAnimatedText(
                     _message,
-                    textStyle: const TextStyle(fontSize: 20),
+                    textStyle: const TextStyle(
+                      fontSize: 38,
+                      fontFamily: "Jersey25",
+                      color: Colors.white,
+                      backgroundColor: Colors.black,
+                    ),
                   ),
                 ],
                 isRepeatingAnimation: false,

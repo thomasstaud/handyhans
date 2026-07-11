@@ -48,6 +48,7 @@ class _AppListState extends State<AppList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: GridView.builder(
         itemCount: _apps.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -90,19 +91,26 @@ class AppIconTile extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ClipRRect(child: Image.memory(
-              icon,
-              width: 56,
-              height: 56,
-              fit: BoxFit.cover
-            )),
+            ClipRRect(
+              child: Image.memory(
+                icon,
+                width: 56,
+                height: 56,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 3),
             SizedBox(
-              width: 72,
               child: Text(
                 label,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 11),
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [Shadow(blurRadius: 5, offset: Offset(2, 2))],
+                ),
               ),
             ),
           ],
